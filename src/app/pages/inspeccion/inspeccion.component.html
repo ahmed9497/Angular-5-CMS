@@ -1,0 +1,77 @@
+<!--<button class="col-lg-3 mb-2" (click)="onNext()">next</button>-->
+<!--<button type="button" (click)="selectedDate(d)" class="btn btn-success btn-rounded w-100p mb-1">with date</button>-->
+    <div class="row">
+        <div class="form-group d-inline-block align-top col-md-3">
+            <!--<label for="datepicker">choose a date</label>-->
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="dp" [displayMonths]="displayMonths" [navigation]="navigation" [(ngModel)]="modelPopup" (ngModelChange)="onDateSelect($event)" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append" (click)="d.toggle()">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Customer name" #customerData>
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button">Get it</button>
+                </div>
+            </div>
+        </div>
+        <!--<button (click)="selectedDate()"></button>-->
+        <div class="col-md-4"><button type="button" (click)="onNext()" class="btn btn-success btn-rounded">Next data</button></div>
+    </div>
+ 
+<dx-data-grid
+        id="gridContainer"
+        [dataSource]="dataSourceEquip"
+         keyExpr="ID"
+        [allowColumnReordering]="true"
+        (onEditingStart)="logEvent('EditingStart', $event)"
+        (onInitNewRow)="logEvent('InitNewRow', $event)"
+        (onRowInserting)="logEvent('RowInserting', $event)"
+        (onRowInserted)="addItem($event)"
+        (onRowUpdating)="logEvent('RowUpdating', $event)"
+        (onRowUpdated)="updateItem($event)"
+        (onRowRemoving)="logEvent('RowRemoving', $event)"
+        (onRowRemoved)="toDeleteItem($event)">
+
+    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+  
+    
+    
+    <!-- <dxi-column dataField="DeliveryAddress" caption="Endereço"></dxi-column> -->
+    <dxi-column dataField="ContactEmail" caption="Correo de Contacto" [width]="100"></dxi-column>
+    <dxi-column dataField="ContactName" caption="Contacto de la Obra" ></dxi-column>
+    <dxi-column dataField="ContactPhone" caption="Telefono de contacto"></dxi-column>
+    <dxi-column dataField="CustomerName" caption="Cliente"></dxi-column>
+    <dxi-column dataField="DeliveryDate" caption="Fecha de Despacho" dataType="date"></dxi-column>
+    <dxi-column dataField="DocumentType" caption="Tipo de Documento"></dxi-column>
+    <dxi-column dataField="Project" caption="Nombre de la Obra"></dxi-column>
+    <dxi-column dataField="ProjectId" caption="Id"></dxi-column>
+    <dxi-column dataField="Status" caption="Status" ></dxi-column>    
+    <dxi-column dataField="SupervisorName" caption="Supervisor" ></dxi-column>
+    <dxi-column dataField="TimeStamp" caption="Hora de la Inspección"> </dxi-column>
+    <!--<dxi-column dataField="Actions" [allowHeaderFiltering]="false"-->
+    <!--[allowFiltering]="false" [allowSorting]="false" cellTemplate="cemplate"-->
+    <!--alignment="center" [width]="70"></dxi-column>-->
+    <!--<div *dxTemplate="let data of 'cemplate'">-->
+    <!--<i class="fas fa-cog" title="Modifier" data-toggle="tooltip" (click)="onTest(data)"></i>-->
+    <!--</div>-->
+    <dxo-editing
+            mode="row"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="true">
+    </dxo-editing>
+
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+    </dxo-pager>
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-search-panel [visible]="true" [width]="240" placeholder="Rechercher..."></dxo-search-panel>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+</dx-data-grid>
